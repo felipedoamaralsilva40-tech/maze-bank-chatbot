@@ -1,0 +1,76 @@
+frase,categoria
+quero ver minha fatura atual,fatura
+quanto está minha fatura,fatura
+fatura do cartão fechou,fatura
+quero pagar cartão,fatura
+ver valor total da fatura,fatura
+fatura em atraso,fatura
+detalhes da fatura,fatura
+baixar fatura em pdf,fatura
+mostrar minha fatura,fatura
+segunda via da fatura,fatura
+quanto devo no cartão,fatura
+fatura aberta,fatura
+valor da fatura desse mês,fatura
+fatura do mês atual,fatura
+fatura do cartão de crédito,fatura
+
+qual meu limite disponível,limite
+quanto posso gastar no cartão,limite
+limite do meu cartão aumentou,limite
+reduzir limite do cartão,limite
+limite estourou,limite
+limite atual do cartão,limite
+quero mais limite no cartão,limite
+como aumentar meu limite,limite
+qual é meu limite,limite
+limite restante do cartão,limite
+quanto ainda tenho de limite,limite
+meu limite foi aprovado,limite
+aumentar limite urgente,limite
+
+cartão foi bloqueado,bloqueio
+meu cartão não funciona,bloqueio
+bloqueio temporário do cartão,bloqueio
+desbloquear cartão urgente,bloqueio
+cartão suspenso,bloqueio
+não consigo usar o cartão,bloqueio
+ativar cartão novamente,bloqueio
+cartão inativo,bloqueio
+cartão recusado,bloqueio
+transação negada,bloqueio
+cartão parou de funcionar,bloqueio
+
+quantas parcelas restam,parcela
+parcelamento do cartão,parcela
+valor da próxima parcela,parcela
+quero ver minhas parcelas,parcela
+quantas parcelas já paguei,parcela
+parcelas do cartão,parcela
+dividir compra em parcelas,parcela
+simular parcelamento,parcela
+quantas parcelas faltam,parcela
+detalhe das parcelas,parcela
+
+recuperar senha do cartão,senha
+senha do cartão esquecida,senha
+não lembro minha senha,senha
+alterar senha agora,senha
+trocar senha do cartão,senha
+senha bloqueada,senha
+criar nova senha,senha
+senha de acesso,senha
+esqueci minha senha,senha
+resetar senha,senha
+
+bom dia tudo bem,saudacao
+boa tarde tudo certo,saudacao
+boa noite como vai,saudacao
+olá banco,saudacao
+oi atendimento,saudacao
+e aí tudo bem,saudacao
+olá quero ajuda,saudacao
+bom dia atendente,saudacao
+opa tudo bem,saudacao
+fala comigo,saudacao
+preciso de ajuda,saudacao
