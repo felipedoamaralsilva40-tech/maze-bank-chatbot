@@ -5,18 +5,29 @@
 
 <meta charset="UTF-8">
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Maze Bank</title>
 
 <style>
+
+* {
+    box-sizing: border-box;
+}
 
 body {
 
     margin: 0;
 
-    font-family: Arial;
+    font-family: Arial, sans-serif;
 
     background: #dcdcdc;
 }
+
+
+/* ============================= */
+/* LOGO */
+/* ============================= */
 
 .logo {
 
@@ -28,13 +39,22 @@ body {
 .logo img {
 
     width: 170px;
+
+    max-width: 80%;
 }
+
+
+/* ============================= */
+/* CHAT */
+/* ============================= */
 
 .chat-container {
 
     width: 700px;
 
-    height: 500px;
+    max-width: 95%;
+
+    height: 600px;
 
     background: white;
 
@@ -47,7 +67,14 @@ body {
     flex-direction: column;
 
     overflow: hidden;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
+
+
+/* ============================= */
+/* MENSAGENS */
+/* ============================= */
 
 .messages {
 
@@ -60,9 +87,10 @@ body {
     background: #f3f3f3;
 }
 
+
 .msg {
 
-    padding: 10px;
+    padding: 12px;
 
     border-radius: 10px;
 
@@ -71,7 +99,10 @@ body {
     max-width: 75%;
 
     white-space: pre-line;
+
+    line-height: 1.4;
 }
+
 
 .user {
 
@@ -80,21 +111,34 @@ body {
     color: white;
 
     margin-left: auto;
+
+    border-bottom-right-radius: 2px;
 }
+
 
 .bot {
 
     background: #ddd;
 
     color: black;
+
+    border-bottom-left-radius: 2px;
 }
+
+
+/* ============================= */
+/* ÁREA DE INPUT */
+/* ============================= */
 
 .input-area {
 
     display: flex;
 
     border-top: 1px solid #ccc;
+
+    background: white;
 }
+
 
 input {
 
@@ -105,7 +149,10 @@ input {
     border: none;
 
     outline: none;
+
+    font-size: 16px;
 }
+
 
 button {
 
@@ -118,110 +165,442 @@ button {
     color: white;
 
     cursor: pointer;
+
+    font-size: 15px;
+}
+
+
+button:hover {
+
+    background: #cc0000;
+}
+
+
+/* ============================= */
+/* BOTÃO REINICIAR */
+/* ============================= */
+
+.reset-button {
+
+    width: 120px;
+
+    margin: 0 auto 10px auto;
+
+    padding: 8px;
+
+    border-radius: 5px;
+
+    background: #555;
+
+    color: white;
+
+    cursor: pointer;
+
+    border: none;
+
+    font-size: 13px;
+}
+
+
+.reset-button:hover {
+
+    background: #333;
+}
+
+
+/* ============================= */
+/* CELULAR */
+/* ============================= */
+
+@media (max-width: 600px) {
+
+    .chat-container {
+
+        height: 80vh;
+
+        margin: 10px auto;
+    }
+
+    .msg {
+
+        max-width: 85%;
+    }
+
+    button {
+
+        width: 80px;
+    }
+
 }
 
 </style>
 
 </head>
 
+
 <body>
+
+
+<!-- ============================= -->
+<!-- LOGO -->
+<!-- ============================= -->
 
 <div class="logo">
 
-<img src="/static/imagen/logo.png">
+    <img src="/static/imagen/logo.png" alt="Maze Bank">
 
 </div>
+
+
+<!-- ============================= -->
+<!-- CHAT -->
+<!-- ============================= -->
 
 <div class="chat-container">
 
-<div id="messages" class="messages"></div>
 
-<div class="input-area">
+    <div id="messages" class="messages"></div>
 
-<input
-    id="input"
-    type="text"
-    placeholder="Digite sua mensagem..."
->
 
-<button onclick="enviar()">
-Enviar
-</button>
+    <!-- BOTÃO REINICIAR -->
+
+    <button
+        class="reset-button"
+        onclick="reiniciar()"
+    >
+        Reiniciar
+    </button>
+
+
+    <!-- INPUT -->
+
+    <div class="input-area">
+
+        <input
+            id="input"
+            type="text"
+            placeholder="Digite seu CPF..."
+            autocomplete="off"
+        >
+
+
+        <button onclick="enviar()">
+
+            Enviar
+
+        </button>
+
+    </div>
+
 
 </div>
 
-</div>
 
 <script>
 
+
+// =====================================================
+// MOSTRAR MENSAGEM
+// =====================================================
+
 function addMessage(text, type) {
 
-    const div =
-        document.createElement("div");
+    const div = document.createElement("div");
 
-    div.className =
-        "msg " + type;
+    div.className = "msg " + type;
 
     div.innerText = text;
 
-    document
-        .getElementById("messages")
-        .appendChild(div);
+
+    const messages =
+        document.getElementById("messages");
+
+
+    messages.appendChild(div);
+
+
+    // Desce automaticamente para a última mensagem
+
+    messages.scrollTop =
+        messages.scrollHeight;
 }
+
+
+// =====================================================
+// ALTERAR PLACEHOLDER
+// =====================================================
+
+function alterarCampo(campo) {
+
+    const input =
+        document.getElementById("input");
+
+
+    if (campo === "cpf") {
+
+        input.placeholder =
+            "Digite seu CPF...";
+
+    }
+
+    else if (campo === "nome") {
+
+        input.placeholder =
+            "Digite seu nome...";
+
+    }
+
+    else if (campo === "data_nascimento") {
+
+        input.placeholder =
+            "Digite sua data de nascimento...";
+
+    }
+
+    else if (campo === "email") {
+
+        input.placeholder =
+            "Digite seu e-mail...";
+
+    }
+
+    else if (campo === "senha") {
+
+        input.placeholder =
+            "Digite sua senha...";
+
+        input.type = "password";
+
+    }
+
+    else if (campo === "profissao") {
+
+        input.placeholder =
+            "Digite sua profissão...";
+
+        input.type = "text";
+
+    }
+
+    else if (campo === "telefone") {
+
+        input.placeholder =
+            "Digite seu telefone...";
+
+    }
+
+    else if (campo === "chat") {
+
+        input.placeholder =
+            "Digite sua pergunta...";
+
+        input.type = "text";
+
+    }
+
+
+    input.focus();
+}
+
+
+// =====================================================
+// ENVIAR MENSAGEM
+// =====================================================
 
 async function enviar() {
 
     const input =
         document.getElementById("input");
 
+
     const texto =
-        input.value;
+        input.value.trim();
 
-    if (texto == "") return;
 
-    addMessage(texto, "user");
+    if (texto === "") {
+
+        return;
+
+    }
+
+
+    // Mostra mensagem do usuário
+
+    addMessage(
+        texto,
+        "user"
+    );
+
+
+    // Limpa o campo
 
     input.value = "";
 
-    const response =
-        await fetch("/chat", {
 
-        method: "POST",
+    try {
 
-        headers: {
-            "Content-Type": "application/json"
-        },
+        const response =
+            await fetch("/chat", {
 
-        body: JSON.stringify({
-            pergunta: texto
-        })
-    });
+                method: "POST",
 
-    const data =
-        await response.json();
+                headers: {
 
-    addMessage(data.resposta, "bot");
+                    "Content-Type":
+                        "application/json"
+
+                },
+
+                body: JSON.stringify({
+
+                    pergunta: texto
+
+                })
+
+            });
+
+
+        const data =
+            await response.json();
+
+
+        // Mostra resposta
+
+        addMessage(
+            data.resposta,
+            "bot"
+        );
+
+
+        // Atualiza o campo
+
+        if (data.campo) {
+
+            alterarCampo(
+                data.campo
+            );
+
+        }
+
+
+    }
+
+    catch (erro) {
+
+        console.error(
+            "Erro:",
+            erro
+        );
+
+
+        addMessage(
+            "Não foi possível conectar ao servidor.",
+            "bot"
+        );
+
+    }
+
 }
 
+
+// =====================================================
+// TECLA ENTER
+// =====================================================
+
 document
-.getElementById("input")
-.addEventListener("keypress", function(e){
+    .getElementById("input")
+    .addEventListener(
+        "keypress",
+        function(event) {
 
-    if(e.key === "Enter") {
+            if (event.key === "Enter") {
 
-        enviar();
+                enviar();
+
+            }
+
+        }
+    );
+
+
+// =====================================================
+// REINICIAR
+// =====================================================
+
+async function reiniciar() {
+
+    try {
+
+        const response =
+            await fetch("/reset", {
+
+                method: "POST"
+
+            });
+
+
+        const data =
+            await response.json();
+
+
+        // Limpa mensagens
+
+        document.getElementById(
+            "messages"
+        ).innerHTML = "";
+
+
+        // Mostra mensagem
+
+        addMessage(
+            data.resposta,
+            "bot"
+        );
+
+
+        alterarCampo(
+            data.campo
+        );
+
+
     }
-});
+
+    catch (erro) {
+
+        console.error(
+            erro
+        );
+
+        addMessage(
+            "Não foi possível reiniciar.",
+            "bot"
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// INÍCIO
+// =====================================================
 
 window.onload = function() {
 
     addMessage(
-        "Bem-vindo ao Maze Bank\n\n1 - Entrar\n\n2 - Criar conta",
+        "Bem-vindo ao Maze Bank!\n\n" +
+        "Digite seu CPF para entrar ou criar sua conta:",
         "bot"
     );
-}
+
+
+    alterarCampo("cpf");
+
+};
 
 </script>
 
+
 </body>
+
 </html>

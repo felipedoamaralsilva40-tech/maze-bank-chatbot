@@ -1,53 +1,111 @@
-#bibliotecas usadas no projeto
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.naive_bayes import MultinomialNB
 import pandas as pd
 import json
 
 
-perguntas = pd.read_csv("pergunta.csv")
-frase = perguntas['frase'].astype(str).tolist()
-categoria = perguntas['categoria'].astype(str).tolist()
 
-#VETORIZAÇÃO E TREINAMENTO
+# CARREGAR PERGUNTAS
+
+
+perguntas = pd.read_csv("pergunta.csv")
+
+frase = perguntas["frase"].astype(str).tolist()
+categoria = perguntas["categoria"].astype(str).tolist()
+
+
+
+# VETORIZAÇÃO
+
+
 vetorizador = CountVectorizer()
+
 X = vetorizador.fit_transform(frase)
 
+
+
+# TREINAMENTO DO MODELO
+
+
 modelo = MultinomialNB()
+
 modelo.fit(X, categoria)
 
 
-#RESPOSTAS
-with open('resposta.json', 'r') as arquivo:
-  respostas = json.load(arquivo)
+
+# CARREGAR RESPOSTAS
 
 
-#CHATBOT
-print('='*35)
-print('  * CHATBOT - OPERADORA DE CARTÃO *  ')
-print("Digite sua pergunta ou 'sair' para encerrar")
-print('='*35)
-
-while True:
-  pergunta = input('\nVocê: ').lower()
-
-  if pergunta == 'sair':
-    print('Chatbot: Atendimento encerrado.')
-    break
-
-  pergunta_vetorizada = vetorizador.transform([pergunta])
+with open("resposta.json", "r", encoding="utf-8") as arquivo:
+    respostas = json.load(arquivo)
 
 
-  categoria_prevista = modelo.predict(pergunta_vetorizada)[0]
-  
-  probabilidades = modelo.predict_proba(pergunta_vetorizada)[0]
-  
 
-  maior_probabilidade = max(probabilidades)
+# FUNÇÃO DO CHATBOT
 
-  if maior_probabilidade < 0.60:
-    print("Chatbot: Desculpe, não entendi sua solicitação. Pode reformular a pergunta?")
-  else:
-    print("Categoria identificada:", categoria_prevista)
-    print("Probabilidade:", round(maior_probabilidade * 100, 2), "%")
-    print("Chatbot:", respostas[categoria_prevista])
+
+def responder(pergunta):
+
+    pergunta = str(pergunta).strip().lower()
+
+    if not pergunta:
+        return "Digite uma pergunta."
+
+
+    # Transforma a pergunta em vetor
+    pergunta_vetorizada = vetorizador.transform([pergunta])
+
+
+    # Verifica se existem palavras conhecidas
+    if pergunta_vetorizada.nnz == 0:
+        return "Desculpe, não entendi sua solicitação. Pode reformular a pergunta?"
+
+
+    
+    # PREVISÃO
+    
+
+    categoria_prevista = modelo.predict(
+        pergunta_vetorizada
+    )[0]
+
+
+    
+    # PROBABILIDADE
+    
+
+    probabilidades = modelo.predict_proba(
+        pergunta_vetorizada
+    )[0]
+
+    maior_probabilidade = max(probabilidades)
+
+
+    
+    # CONFIANÇA MÍNIMA
+    
+
+    if maior_probabilidade < 0.60:
+
+        return (
+            "Desculpe, não entendi sua solicitação. "
+            "Pode reformular a pergunta?"
+        )
+
+
+    
+    # BUSCAR RESPOSTA
+    
+
+    resposta = respostas.get(categoria_prevista)
+
+
+    if resposta is None:
+
+        return (
+            "Encontrei sua solicitação, mas ainda "
+            "não tenho uma resposta cadastrada para ela."
+        )
+
+
+    return resposta
